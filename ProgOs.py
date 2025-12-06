@@ -1,10 +1,10 @@
 import pygame
+from App import App
 
 pygame.init()
 
 class ProgOs:
     def __init__(self):
-
         # Initialize core attributes
 
         self.Is_Running = True
@@ -16,13 +16,15 @@ class ProgOs:
         # Load default textures
 
         self.load_default_textures()
-        self.pixel_font = pygame.font.Font("ProgOs/Assets/Font/reppixel.ttf", 16)
+        self.pixel_font = pygame.font.Font("ProgOs/Assets/Font/ProgFont.ttf", 16)
+
+        self.app_instance = App(self.screen)
 
     def get_object_texture(self, name):
         # Retrieve an object by name 
         objects = {
             "background": {"texture": self.background_texture, "pos": (0, 0), "layer": 0, "scale" : 1},
-            "ProgOs_Text": self.display_text("PROGOS V0.1", (8, 8), 1),
+            "ProgOs_Text": self.display_text("PROGOS_v0.1", (8, 8), 1, scale=2),
             "Create_new_app_icon": {"texture": self.create_new_app_icon_texture, "pos": (412, 1), "layer": 1, "scale" : 2}
         }
         return objects.get(name, None)
@@ -52,21 +54,53 @@ class ProgOs:
         text_surface = self.pixel_font.render(text, True, color)
         return {"texture": text_surface, "pos": position, "layer": layer, "scale": scale}
 
+    def create_new_app(self, app_name):
+        self.app_instance = App(self.screen)
+        with open("ProgOs/App.py", "a") as app_file:
+            app_file.write(f"\n    def {app_name}(self):\n")
+            app_file.write("        pass\n")
+
+    def find_app_lines(self, app_name):
+        with open("ProgOs/App.py", "r") as app_file:
+            lines = app_file.readlines()
+        
+        for line in range(len(lines)):
+            if lines[line].startswith("    def " + app_name + "("):
+                return line + 1
+        return None
+    
+    def modify_app(self, app_name: str):
+        self.app_instance.parameters = [app_name, self.find_app_lines(app_name)]
+        self.start_app("AppEditor")
+
+    def start_app(self, app):
+        app_method = getattr(self.app_instance, app, None)
+        if callable(app_method):
+            self.app_instance.run_app(app_method)
+    
+    def get_app_stopped(self):
+        # detects if the app is done running
+        return self.app_instance.current_app is None
+
     def __loop__(self): # Main loop of the OS
         while self.Is_Running:
-
+            
+            
             # Render all textures depending on their layer
-            self.render_group = [self.get_object_texture("background"),
-                                 self.get_object_texture("ProgOs_Text"),
-                                 self.get_object_texture("Create_new_app_icon")]
-            self.render()
 
-            for event in pygame.event.get():
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_ESCAPE:
-                        self.Is_Running = False
+            if not self.app_instance.current_app:
+                self.render_group = [self.get_object_texture("background"),
+                                    self.get_object_texture("ProgOs_Text"),
+                                    self.get_object_texture("Create_new_app_icon")]
+                self.render()
+
+                for event in pygame.event.get():
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_ESCAPE:
+                            self.Is_Running = False
+                        if event.key == pygame.K_e:
+                            self.modify_app("test_app")
 
 if __name__ == "__main__":
     running_instance = ProgOs()
-    running_instance.__init__()
     running_instance.__loop__()
