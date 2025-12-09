@@ -34,7 +34,7 @@ class App:
                 self.pixel_font = pygame.font.Font("Assets/Font/ProgFont.ttf", 16)
                 self.app_name_text = self._render_text(self.app_name.upper(), (4, 6), 1, pygame.Color("White"), 2)
                 self.cursor_texture = self._load_texture("Assets/Textures/cursor.png")
-                self.selected_line_texture = self._load_texture("<Assets/Textures/selected_line.png")
+                self.selected_line_texture = self._load_texture("Assets/Textures/selected_line.png")
 
                 self.app_start_line = None
                 self.app_end_line = None
