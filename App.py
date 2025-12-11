@@ -26,7 +26,7 @@ class App:
                 self.os = os
                 self.app_name = app_name
                 self.line_number = line_number
-                self.temp_file = "ProgOs/Temp_app.py"
+                self.temp_file = "Temp_app.py"
                 self.render_group = []
                 self.is_running = True
                 
