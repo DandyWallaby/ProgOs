@@ -261,41 +261,49 @@ class App:
                             mouse_x, mouse_y = pygame.mouse.get_pos()
                             if mouse_y < 32:
                                 print("modify app name")
+
                         if event.type == pygame.KEYDOWN:
                             if event.key == pygame.K_ESCAPE:
                                 self.save_temp_to_app()
                                 self.is_running = False
+
                             elif event.unicode and event.unicode.isprintable():
                                 self.modify_line(selected_line, cursor_pos, event.unicode)
                                 cursor_pos += 1
+
                             elif event.key == pygame.K_BACKSPACE and cursor_pos > 0:
                                 self.delete_char_at_pos(selected_line, cursor_pos)
                                 cursor_pos -= 1
-                            elif event.key == pygame.K_w and pygame.key.get_mods() & pygame.KMOD_CTRL and selected_line > 0:
+
+                            elif event.key == pygame.K_UP and selected_line > 0:
                                 selected_line -= 1
                                 cursor_pos = 0
                                 if selected_line < scroll_line:
                                     scroll_line = selected_line
-                            elif event.key == pygame.K_s and pygame.key.get_mods() & pygame.KMOD_CTRL:
+
+                            elif event.key == pygame.K_DOWN and pygame.KMOD_CTRL:
                                 lines = self._get_file_lines()
                                 if selected_line < len(lines) - 1:
                                     selected_line += 1
                                     cursor_pos = 0
                                     if selected_line >= scroll_line + MAX_VISIBLE:
                                         scroll_line = selected_line - MAX_VISIBLE + 1
-                            elif event.key == pygame.K_a and pygame.key.get_mods() & pygame.KMOD_CTRL:
+
+                            elif event.key == pygame.K_RIGHT and pygame.KMOD_CTRL:
                                 cursor_pos -= 1
-                            elif event.key == pygame.K_d and pygame.key.get_mods() & pygame.KMOD_CTRL:
+
+                            elif event.key == pygame.K_LEFT and pygame.KMOD_CTRL:
                                 lines = self._get_file_lines()
                                 if selected_line < len(lines):
                                     max_pos = len(lines[selected_line].rstrip('\n'))
                                     if cursor_pos < max_pos:
                                         cursor_pos += 1
+
                             elif event.key == pygame.K_RETURN:
                                 self.modify_line(selected_line, cursor_pos, "\n")
                                 selected_line += 1
                                 cursor_pos = 0
-                                
+
                             elif event.key == pygame.K_TAB:
                                 self.modify_line(selected_line, cursor_pos, "   ")
                                 cursor_pos += 3
@@ -304,166 +312,3 @@ class App:
         self.app_instance = app(self, self.parameters[0], self.parameters[1])
         self.app_instance.app()
         self.exit_message = "Exicode : 0"
-
-    def test(self):
-        class app():
-            def __init__(self, os, app_name, line_number):
-                self.os = os
-                self.app_name = app_name
-                self.line_count = line_number
-            def app(self):
-                count = 0
-                limit = 100
-
-                while count != limit:
-                   count += 1
-                   print(count)
-
-                print("take all of those numbers you scum !")
-        self.app_instance = app(self, self.parameters[0], self.parameters[1])
-        self.app_instance.app()
-        self.exit_message = 'Exicode : 0'
-
-    def no_name_app(self):
-        class app():
-            def __init__(self, os, app_name, line_number):
-                self.os = os
-                self.app_name = app_name
-                self.line_count = line_number
-            def app(self):
-                pass
-
-
-
-
-
-
-
-
-
-
-
-
-        self.app_instance = app(self, self.parameters[0], self.parameters[1])
-        self.app_instance.app()
-        self.exit_message = 'Exicode : 0'
-
-    def no_name_app(self):
-        class app():
-            def __init__(self, os, app_name, line_number):
-                self.os = os
-                self.app_name = app_name
-                self.line_count = line_number
-            def app(self):
-                pass
-        self.app_instance = app(self, self.parameters[0], self.parameters[1])
-        self.app_instance.app()
-        self.exit_message = 'Exicode : 0'
-
-    def no_name_app(self):
-        class app():
-            def __init__(self, os, app_name, line_number):
-                self.os = os
-                self.app_name = app_name
-                self.line_count = line_number
-            def app(self):
-                pass
-        self.app_instance = app(self, self.parameters[0], self.parameters[1])
-        self.app_instance.app()
-        self.exit_message = 'Exicode : 0'
-
-    def no_name_app(self):
-        class app():
-            def __init__(self, os, app_name, line_number):
-                self.os = os
-                self.app_name = app_name
-                self.line_count = line_number
-            def app(self):
-                pass
-        self.app_instance = app(self, self.parameters[0], self.parameters[1])
-        self.app_instance.app()
-        self.exit_message = 'Exicode : 0'
-
-    def no_name_app(self):
-        class app():
-            def __init__(self, os, app_name, line_number):
-                self.os = os
-                self.app_name = app_name
-                self.line_count = line_number
-            def app(self):
-                pass
-        self.app_instance = app(self, self.parameters[0], self.parameters[1])
-        self.app_instance.app()
-        self.exit_message = 'Exicode : 0'
-
-    def no_name_app(self):
-        class app():
-            def __init__(self, os, app_name, line_number):
-                self.os = os
-                self.app_name = app_name
-                self.line_count = line_number
-            def app(self):
-                pass
-        self.app_instance = app(self, self.parameters[0], self.parameters[1])
-        self.app_instance.app()
-        self.exit_message = 'Exicode : 0'
-
-    def no_name_app(self):
-        class app():
-            def __init__(self, os, app_name, line_number):
-                self.os = os
-                self.app_name = app_name
-                self.line_count = line_number
-            def app(self):
-                pass
-        self.app_instance = app(self, self.parameters[0], self.parameters[1])
-        self.app_instance.app()
-        self.exit_message = 'Exicode : 0'
-
-    def no_name_app(self):
-        class app():
-            def __init__(self, os, app_name, line_number):
-                self.os = os
-                self.app_name = app_name
-                self.line_count = line_number
-            def app(self):
-                pass
-        self.app_instance = app(self, self.parameters[0], self.parameters[1])
-        self.app_instance.app()
-        self.exit_message = 'Exicode : 0'
-
-    def no_name_app(self):
-        class app():
-            def __init__(self, os, app_name, line_number):
-                self.os = os
-                self.app_name = app_name
-                self.line_count = line_number
-            def app(self):
-                pass
-        self.app_instance = app(self, self.parameters[0], self.parameters[1])
-        self.app_instance.app()
-        self.exit_message = 'Exicode : 0'
-
-    def no_name_app(self):
-        class app():
-            def __init__(self, os, app_name, line_number):
-                self.os = os
-                self.app_name = app_name
-                self.line_count = line_number
-            def app(self):
-                pass
-        self.app_instance = app(self, self.parameters[0], self.parameters[1])
-        self.app_instance.app()
-        self.exit_message = 'Exicode : 0'
-
-    def no_name_app(self):
-        class app():
-            def __init__(self, os, app_name, line_number):
-                self.os = os
-                self.app_name = app_name
-                self.line_count = line_number
-            def app(self):
-                pass
-        self.app_instance = app(self, self.parameters[0], self.parameters[1])
-        self.app_instance.app()
-        self.exit_message = 'Exicode : 0'
