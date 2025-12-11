@@ -289,10 +289,11 @@ class App:
                                     if selected_line >= scroll_line + MAX_VISIBLE:
                                         scroll_line = selected_line - MAX_VISIBLE + 1
 
-                            elif event.key == pygame.K_RIGHT and pygame.KMOD_CTRL:
-                                cursor_pos -= 1
-
                             elif event.key == pygame.K_LEFT and pygame.KMOD_CTRL:
+                                if cursor_pos > 0:
+                                    cursor_pos -= 1
+
+                            elif event.key == pygame.K_RIGHT and pygame.KMOD_CTRL:
                                 lines = self._get_file_lines()
                                 if selected_line < len(lines):
                                     max_pos = len(lines[selected_line].rstrip('\n'))
